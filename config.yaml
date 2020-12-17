@@ -1,0 +1,43 @@
+name: Separability_Checker
+gpu: cuda:1
+multi_gpu: False
+
+train:
+  epoch: 500
+  early_stop: 100000
+  path: ./checkpoint
+  is_gpu: True
+  resume:
+    state: True
+    path: ./checkpoint/Separability_Checker/best.pt
+
+test:
+  path_test: ./result_test
+  path_model : ./checkpoint/Separability_Checker/best.pt
+
+transform:
+  n_fft: 256
+  hop_length: 64
+  win_length: 256
+  window: 'hann'
+  center: True
+  sr: 8000
+
+dataloader:
+  batch_size: 10
+  num_workers: 3
+  shuffle: True
+
+network:
+  hidden_size: 100
+  num_layer: 1
+  dropout: 0.5
+  bidirectional: True
+
+optim:
+  name: Adam
+  lr: 1.0e-5
+  momentum: 0.9
+  weight_decay: 0
+  clip_norm: 200
+
